@@ -5,10 +5,6 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	OH NO!!! sdjflsdjfklsdfjklsdfsdfsdfsdfsdfhahaha merge plz
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+	song branch
 </body>
 </html>
