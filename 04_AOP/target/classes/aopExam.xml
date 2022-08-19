@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<bean id="myboard" class="example3.BoardImpl"/>
+	<bean id="myhello" class="example3.Hello"/>
+	<bean id="mylogin" class="example3.Login"/>
+	<bean id="mylogout" class="example3.Logout"/>
+	<bean id="mydao" class="example3.Dao"/>
+	
+	
+
+	<aop:config>
+		<aop:aspect order="3" ref="mydao">
+			<aop:before pointcut="execution(* example3.BoardImpl.*())" method="dao"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<aop:config>
+		<aop:aspect order="1" ref="mylogin">
+			<aop:before pointcut="execution(* example3.BoardImpl.*())" method="login"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<aop:config>
+		<aop:aspect order="2" ref="myhello">
+			<aop:before pointcut="execution(* example3.BoardImpl.*())" method="hello"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<aop:config>
+		<aop:aspect order="4" ref="mylogout">
+			<aop:after pointcut="execution(* example3.BoardImpl.*())" method="logout"/>
+		</aop:aspect>
+	</aop:config>
+
+</beans>
+
+<!-- 
+	exampe3.BoardImpl의 매개변수 없는 아무 메서드 실행하기 전에
+	mylogin으로 관리하는 example3.Login 클래스 안의 login 메서드를 실행하라
+ -->
